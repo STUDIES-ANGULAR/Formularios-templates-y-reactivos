@@ -30,12 +30,16 @@
 
             <div class="input-group">
                 <input  class="form-control"
-                placeholder="Agregar favorito">
+                        placeholder="Agregar favorito"
+                        [(ngModel)]="nuevoJuego"
+                        (keyup.enter)="agregarFavorito()"
+                        name="nuevoJuego">
             
-            <button class="btn btn-outline-primary"
-                    type="button">
+                <button class="btn btn-outline-primary"
+                        type="button"
+                        (click)="agregarFavorito()">
                     Agregar
-            </button>
+                </button>
             </div>
         </div>
     </div>
@@ -51,13 +55,13 @@
                         [(ngModel)] = jugador.nombre
                         name="favorito_{{ i }}"
                         class="form-control"
-                        required="">
+                        required>
                 
                     
                 <button class="btn btn-outline-danger" 
                         type="button"
                         (click)="eliminar(i)">
-                Eliminar
+                    Eliminar
                 </button>
             </div>
             

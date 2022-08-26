@@ -17,6 +17,8 @@ interface Favorito {
 })
 export class DinamicosComponent  {
 
+nuevoJuego : string = '';
+
 persona: Persona = {
   nombre: 'Arley Rivas',
   favoritos: [
@@ -26,9 +28,18 @@ persona: Persona = {
   ]
 }
 
-  guardar(){
-    console.log('this.miFormulario.controls');
+  agregarFavorito(){
+    const nuevoFavorito: Favorito = {
+      id: this.persona.favoritos.length + 1,
+      nombre: this.nuevoJuego
+    }
+
+    this.persona.favoritos.push({...nuevoFavorito});
+    this.nuevoJuego = '';
   }
+
+  guardar(){}
+
   eliminar( index: number ){
     this.persona.favoritos.splice(index, 1);
   }
