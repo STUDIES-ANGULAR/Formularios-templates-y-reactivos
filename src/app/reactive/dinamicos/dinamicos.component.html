@@ -2,15 +2,17 @@
 
 <hr>
 
-<form autocomplete="off">
+<form  [formGroup]="miFormulario" (ngSubmit)="guardar()" autocomplete="off">
         
     <!-- Nombre -->
     <div class="mb-3 row">
             <label class="col-sm-3">Nombre</label>
             <div class="col-sm-9">
                 <input  class="form-control"
+                        formControlName="nombre"
                         placeholder="Nombre de la persona">
-                <span class="form-text text-danger">
+                <span class="form-text text-danger"
+                     *ngIf="campoNoEsValido('nombre')">
                     Este campo es obligatorio.
                 </span>
             </div>
@@ -24,12 +26,12 @@
             <div class="input-group">
                 <input  class="form-control"
                         placeholder="Agregar favorito"
-                        (keyup.enter)="1"
-                        name="nuevoJuego">
+                        [formControl]="nuevoFavorito"
+                        (keyup.enter)="agregarFavorito()">
             
                 <button class="btn btn-outline-primary"
                         type="button"
-                        (click)="1">
+                        (click)="agregarFavorito()">
                     Agregar
                 </button>
             </div>
@@ -39,35 +41,49 @@
      <!-- Lista jugadores favoritos -->
     <div class="mb-3 row">
         <label class="col-sm-3">Favoritos</label>
-        <div class="col-sm-9">
+       
+        <div class="col-sm-9" formArrayName="favoritos">
 
-            <!-- <div class="input-group mb-1"  
-                 *ngFor="let jugador of persona.favoritos; let i = index">
-                <input  class="form-control">
+            <div class="input-group mb-1" 
+                *ngFor="let favorito of favoritosArray.controls; let i = index" >
+                
+                <input  class="form-control"
+                        [formControlName]="i">
                 
                     
                 <button class="btn btn-outline-danger" 
                         type="button"
-                        (click)="1">
+                        (click)="borrarFavorito(i)">
                     Eliminar
                 </button>
-            </div> -->
+            </div>
             
         </div>
+
     </div>
 
 
     <div class="row">
         <div class="col-sm-12">
-            <button type="button"
-                    class=" btn btn-primary float-end"
-                    (click)="1">
+            <button type="submit"
+                    class=" btn btn-primary float-end">
                     Guardar
             </button>
         </div>
     </div>  
 </form>
 
+<span>Valid</span>
+<pre>{{ miFormulario.valid }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ miFormulario.value | json }}</pre>
+<br>
+
+<span>Agregar juego</span>
+<pre>{{ nuevoFavorito.valid }}</pre>
+<pre>{{ nuevoFavorito.value }}</pre>
 
 <!-- 
 
