@@ -38,7 +38,6 @@ export class DinamicosComponent  {
     if( this.nuevoFavorito.invalid ){ return; }
 
     //ya que los FormArray son controls, le podemos añadir  el nuevo favorito a través del get favoritosArray.push 
-    
     // this.favoritosArray.push( new FormControl( this.nuevoFavorito.value, Validators.required ) );  //opcion 1
     this.favoritosArray.push( this.formBuilder.control( this.nuevoFavorito.value, Validators.required ) );     //opcion 2
     
