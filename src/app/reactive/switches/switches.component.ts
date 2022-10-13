@@ -27,10 +27,17 @@ export class SwitchesComponent implements OnInit{
       ...this.persona,  // al tener atributos iguales pasa sin problema
       terminosYCondiciones: false 
     });
+
+    //cambiar datos en persona de manera reactiva al ser un formulario reactivo
+    this.miFormulario.valueChanges.subscribe( form => {
+      delete form.terminosYCondiciones;
+      this.persona = form;
+    });
   }
 
   guardar(){
     const formularioValue = {...this.miFormulario.value};
-    console.log(formularioValue);
+    delete formularioValue.terminosYCondiciones;
+    this.persona = formularioValue; 
   }
 }
