@@ -12,7 +12,7 @@ export class DinamicosComponent  {
   miFormulario : FormGroup = this.formBuilder.group({
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     favoritos: this.formBuilder.array([
-      [ 'Messi', Validators.required ], //no son arrays son colecciones de form controls
+      [ 'Messi', Validators.required ], // son colecciones de form controls como this.formBuilder.control
       [ 'Iniesta', Validators.required ],
     ], Validators.required)
   });

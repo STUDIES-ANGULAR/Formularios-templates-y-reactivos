@@ -10,15 +10,15 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class BasicosComponent implements OnInit{
 
   // miFormulario: FormGroup = new FormGroup({
-  //   nombre    : new FormControl('Lavadora Samsung'),
-  //   precio    : new FormControl(1800000),
+  //   nombre     : new FormControl('Lavadora Samsung'),
+  //   precio     : new FormControl(1800000),
   //   existencias: new FormControl(7),
   // });
-
-  miFormulario: FormGroup = this.formBuilder.group({
-    nombre: [ , [Validators.required, Validators.minLength(3)]],
-    precio: [ , [Validators.required, Validators.min(0)]],
-    existencias: [ , [Validators.required, Validators.min(0)]],
+                                            //estre group es igual al FormGroup de arriba
+  miFormulario: FormGroup = this.formBuilder.group({ 
+    nombre      : [ , [Validators.required, Validators.minLength(3)]],
+    precio      : [ , [Validators.required, Validators.min(0)]],
+    existencias : [ , [Validators.required, Validators.min(0)]],
   });
 
   constructor( private formBuilder: FormBuilder) { }

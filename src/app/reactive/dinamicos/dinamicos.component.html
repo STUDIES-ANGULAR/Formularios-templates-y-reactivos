@@ -28,7 +28,7 @@
                         placeholder="Agregar favorito"
                         [formControl]="nuevoFavorito"
                         (keyup.enter)="agregarFavorito()">
-            
+            <!-- usamos el [formControl] para asociar el nuevoFavorito, y no formControlName ya que este no es parte del formulario -->
                 <button class="btn btn-outline-primary"
                         type="button"
                         (click)="agregarFavorito()">
