@@ -12,7 +12,7 @@ export class DinamicosComponent  {
   miFormulario : FormGroup = this.formBuilder.group({
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     favoritos: this.formBuilder.array([
-      [ 'Messi', Validators.required ], // son colecciones de form controls como this.formBuilder.control
+      [ 'Messi', Validators.required ], // son colecciones de formControl o this.formBuilder.control
       [ 'Iniesta', Validators.required ],
     ], Validators.required)
   });
@@ -38,6 +38,7 @@ export class DinamicosComponent  {
     if( this.nuevoFavorito.invalid ){ return; }
 
     //ya que los FormArray son controls, le podemos añadir  el nuevo favorito a través del get favoritosArray.push 
+    
     // this.favoritosArray.push( new FormControl( this.nuevoFavorito.value, Validators.required ) );  //opcion 1
     this.favoritosArray.push( this.formBuilder.control( this.nuevoFavorito.value, Validators.required ) );     //opcion 2
     
