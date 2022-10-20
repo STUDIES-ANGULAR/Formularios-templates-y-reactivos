@@ -29,9 +29,9 @@ export class SwitchesComponent implements OnInit{
     });
 
     //cambiar datos en persona de manera reactiva al ser un formulario reactivo
-    this.miFormulario.valueChanges.subscribe( form => {
-      delete form.terminosYCondiciones;
-      this.persona = form;
+    this.miFormulario.valueChanges.subscribe( ({condiciones, ...rest}) => {
+      // delete form.terminosYCondiciones;
+      this.persona = rest;
     });
   }
 
