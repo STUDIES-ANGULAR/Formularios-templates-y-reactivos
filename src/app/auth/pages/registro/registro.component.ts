@@ -21,24 +21,29 @@ export class RegistroComponent implements OnInit {
                private validatorService: ValidatorService) { }
 
   // //FORMA #1: Validaciones desde un archivo .ts
-  // miFormulario: FormGroup = this.formBuilder.group({
+  // miFormulario: FormGroup = this.formBuilder.group({ 
   //   nombre: ['', [Validators.required, Validators.pattern(nombreApellidoPattern)]],
   //   email: ['', [Validators.required, Validators.pattern(emailPattern)]],
   //   username: ['', [Validators.required, noPuedeSerArley]]
   // })
 
   //FORMA #2: Validaciones desde un servicio
+  
   miFormulario: FormGroup = this.formBuilder.group({
-    nombre: ['', [Validators.required, Validators.pattern(this.validatorService.nombreApellidoPattern)]],
-    email: ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
-    username: ['', [Validators.required, this.validatorService.noPuedeSerArley]]
+    nombre:   ['', [Validators.required, Validators.pattern(this.validatorService.nombreApellidoPattern ) ] ],
+    email:    ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern ) ] ],
+    username: ['', [Validators.required, this.validatorService.noPuedeSerArley ] ],
+    password: ['', [Validators.required, Validators.minLength(6) ] ],
+    password2:['', [Validators.required ] ],
+  },{
+      Validators:  this.validatorService.camposIguales('password','password2') 
   })
 
   ngOnInit(): void {
      this.miFormulario.reset({
        nombre: 'Arley Rivas',
        email: 'emailprueba@test.com',
-       username: 'arley_rg'
+       username: 'arley_rg',
      })
   }
 
