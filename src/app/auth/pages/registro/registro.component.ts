@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { emailPattern, nombreApellidoPattern, noPuedeSerArley } from 'src/app/shared/validator/validaciones';
 import { ValidatorService } from 'src/app/shared/validator/validator.service';
+import { EmailValidatorService } from '../../../shared/validator/email-validator.service';
 
 @Component({
   selector: 'app-registro',
@@ -17,8 +18,9 @@ export class RegistroComponent implements OnInit {
   //TODO: mover método
  
 
-  constructor( private formBuilder: FormBuilder,
-               private validatorService: ValidatorService) { }
+  constructor( private formBuilder     : FormBuilder,
+               private validatorService: ValidatorService,
+               private emailValidator  : EmailValidatorService) { }
 
   // //FORMA #1: Validaciones desde un archivo .ts
   // miFormulario: FormGroup = this.formBuilder.group({ 
@@ -30,8 +32,9 @@ export class RegistroComponent implements OnInit {
   //FORMA #2: Validaciones desde un servicio
   
   miFormulario: FormGroup = this.formBuilder.group({
+  // Campo:   ['Valor del campo',[validaciones sincronas], [validaciones asincronas]],
     nombre:   ['', [Validators.required, Validators.pattern(this.validatorService.nombreApellidoPattern ) ] ],
-    email:    ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern ) ] ],
+    email:    ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern ) ], [this.emailValidator] ],
     username: ['', [Validators.required, this.validatorService.noPuedeSerArley ] ],
     password: ['', [Validators.required, Validators.minLength(6) ] ],
     password2:['', [Validators.required ] ],
