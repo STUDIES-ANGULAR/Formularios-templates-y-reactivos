@@ -45,7 +45,7 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
      this.miFormulario.reset({
        nombre: 'Arley Rivas',
-       email: 'emailprueba@test.com',
+       email: 'test1@test.com',
        username: 'arley_rg',
        password: '123456',
        password2: '123456'
@@ -55,6 +55,18 @@ export class RegistroComponent implements OnInit {
   campoNoValido(campo: string){
    return this.miFormulario.get(campo)?.invalid 
             &&  this.miFormulario.get(campo)?.touched;
+  }
+
+  emailRequired(){
+    return this.miFormulario.get('email')?.errors?.['required'] 
+            &&  this.miFormulario.get('email')?.touched;
+  }
+  emailFormato(){
+    return this.miFormulario.get('email')?.errors?.['pattern'] 
+  }
+
+  emailTomado(){
+    return this.miFormulario.get('email')?.errors?.['emailTomado'] 
   }
 
   submitFormulario(){
