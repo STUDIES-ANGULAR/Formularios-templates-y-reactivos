@@ -15,12 +15,9 @@ export class RegistroComponent implements OnInit {
   nombreApellidoPattern: string = "([a-zA-Z]+) ([a-zA-Z]+)";
   emailPattern         :string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"; 
 
-  //TODO: mover método
- 
 
-  constructor( private formBuilder     : FormBuilder,
-               private validatorService: ValidatorService,
-               private emailValidator  : EmailValidatorService) { }
+ 
+ 
 
   // //FORMA #1: Validaciones desde un archivo .ts
   // miFormulario: FormGroup = this.formBuilder.group({ 
@@ -30,7 +27,6 @@ export class RegistroComponent implements OnInit {
   // })
 
   //FORMA #2: Validaciones desde un servicio
-  
   miFormulario: FormGroup = this.formBuilder.group({
   // Campo:   ['Valor del campo',[validaciones sincronas], [validaciones asincronas]],
     nombre:   ['', [Validators.required, Validators.pattern(this.validatorService.nombreApellidoPattern ) ] ],
@@ -40,7 +36,25 @@ export class RegistroComponent implements OnInit {
     password2:['', [Validators.required ] ],
   },{
       Validators:  this.validatorService.camposIguales('password','password2') 
-  })
+  });
+
+  get emailErrorMsg(): string {
+    const errors = this.miFormulario.get('email')?.errors;
+    if( errors?.['required']){
+      return 'Email es obligatorio.';
+    }
+    if(errors?.['pattern']){
+      return 'El correo no tiene formato valido.';
+    }
+    if(errors?.['emailTomado']){
+      return 'El correo ya fue usado.'
+    }    
+    return '';
+  }
+  constructor( private formBuilder     : FormBuilder,
+    private validatorService: ValidatorService,
+    private emailValidator  : EmailValidatorService) { }
+
 
   ngOnInit(): void {
      this.miFormulario.reset({
@@ -57,17 +71,8 @@ export class RegistroComponent implements OnInit {
             &&  this.miFormulario.get(campo)?.touched;
   }
 
-  emailRequired(){
-    return this.miFormulario.get('email')?.errors?.['required'] 
-            &&  this.miFormulario.get('email')?.touched;
-  }
-  emailFormato(){
-    return this.miFormulario.get('email')?.errors?.['pattern'] 
-  }
 
-  emailTomado(){
-    return this.miFormulario.get('email')?.errors?.['emailTomado'] 
-  }
+  
 
   submitFormulario(){
     console.log(this.miFormulario.value);
